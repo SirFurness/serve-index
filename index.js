@@ -323,9 +323,34 @@ function fileSort(a, b) {
       : a.name === '..' ? -1 : 1;
   }
 
-  return Number(b.stat && b.stat.isDirectory()) - Number(a.stat && a.stat.isDirectory()) ||
-    String(a.name).toLocaleLowerCase().localeCompare(String(b.name).toLocaleLowerCase());
+  return Number(b.stat && b.stat.isDirectory()) - Number(a.stat && a.stat.isDirectory()) || sortFilesWithNumbers(a, b);
+    //String(a.name).toLocaleLowerCase().localeCompare(String(b.name).toLocaleLowerCase());
 }
+
+function sortFilesWithNumbers(a, b) {
+  let aName = String(a.name);
+  aName = aName.substring(0, aName.length-3);
+  let bName = String(b.name);
+  bName = bName.substring(0, bName.length-3);
+  let aList = aName.split('-');
+  let bList = bName.split('-');
+  
+  for (let itemA of aList) {
+    for (let itemB of bList) {
+      let numberA = Number(itemA);
+      let numberB = Number(itemB);
+      if(numberA < numberB) {
+        return 1;
+      }
+      if(numberB < numberA) {
+        return -1;
+      }
+    }
+  }
+  
+  return 0;
+}
+        
 
 /**
  * Map html `dir`, returning a linked path.
