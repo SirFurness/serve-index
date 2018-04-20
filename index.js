@@ -329,22 +329,21 @@ function fileSort(a, b) {
 
 function sortFilesWithNumbers(a, b) {
   let aName = String(a.name);
-  aName = aName.substring(0, aName.length-3);
+  aName = aName.substring(0, aName.length-4);
   let bName = String(b.name);
-  bName = bName.substring(0, bName.length-3);
+  bName = bName.substring(0, bName.length-4);
   let aList = aName.split('-');
   let bList = bName.split('-');
   
-  for (let itemA of aList) {
-    for (let itemB of bList) {
-      let numberA = Number(itemA);
-      let numberB = Number(itemB);
-      if(numberA < numberB) {
-        return 1;
-      }
-      if(numberB < numberA) {
-        return -1;
-      }
+  for(let i = 0; i < aList.length; i++) {
+    let numberA = Number(aList[i]);
+    let numberB = Number(bList[i]);
+    
+    if(numberA < numberB) {
+      return 1;
+    }
+    if(numberB < numberA) {
+      return -1;
     }
   }
   
